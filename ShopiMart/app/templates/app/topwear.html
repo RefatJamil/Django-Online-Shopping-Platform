@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}topwears{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+    <div class="list-group">
+        <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action">All topwear</a>
+
+        {% for i in alltopwear %}
+        <a href="{% url 'topwear' i.brand %}" class="list-group-item list-group-item-action">{{i.brand}}</a>
+       {% endfor %}
+       <br>
+       <a href="{% url 'topwear' 'below' %}" class="list-group-item list-group-item-action"> ৳0 - ৳35000 </a>
+       <a href="{% url 'topwear' 'above' %}" class="list-group-item list-group-item-action"> ৳35000 +</a>
+
+    </div>
+  </div>
+
+  <div class="col-sm-8 offset-sm-1">
+    <div class="row">
+        {% for product in topwear %}
+        <div class="col text-center mb-4 mx-3">
+            <a href="{% url 'product-detail' product.id %}" class="btn">
+                <div class="item">
+                    <img src="{{ product.product_img.url }}" alt="" height="300" class="">
+                    <div class="fw-bold">{{product.title}}</div>
+                    <div class="fw-bold">Tk. {{product.discounted_price}}
+                        <small class="fw-light text-decoration-line-through">{{product.selling_price}} </small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+ </div>
+</div>
+{% endblock main-content %}

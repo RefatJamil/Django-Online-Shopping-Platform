@@ -189,7 +189,7 @@ def mobile(request, data=None):
     else:
         mobile = Product.objects.filter(category='M').filter(brand=data)
 
-    allmobile = Product.objects.filter(category='M')
+    allmobile = Product.objects.filter(category='M').values('brand').distinct()
 
     context = {
         'mobile':mobile,
@@ -209,7 +209,7 @@ def laptop(request, data=None):
         laptop = Product.objects.filter(category='L').filter(brand=data)
 
 
-    alllaptop = Product.objects.filter(category='L')
+    alllaptop = Product.objects.filter(category='L').values('brand').distinct()
 
     context = {
         'laptop':laptop,
@@ -229,7 +229,7 @@ def topwear(request, data=None):
         topwear = Product.objects.filter(category='TM').filter(brand=data)
 
 
-    alltopwear = Product.objects.filter(category='TM')
+    alltopwear = Product.objects.filter(category='TM').values('brand').distinct()
 
     context = {
         'topwear':topwear,
@@ -249,7 +249,7 @@ def bottomwear(request, data=None):
         bottomwear = Product.objects.filter(category='BW').filter(brand=data)
 
 
-    allbottomwear = Product.objects.filter(category='BW')
+    allbottomwear = Product.objects.filter(category='BW').values('brand').distinct()
 
     context = {
         'bottomwear':bottomwear,

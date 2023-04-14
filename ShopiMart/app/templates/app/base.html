@@ -63,8 +63,9 @@
          </ul>
          <form class="d-flex">
            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-           <button class="btn btn-warning" type="submit">S</button>
-         </form>
+           <button class="btn btn-wa
+           " type="submit"><i class="fa fa-search"></i></button>
+          </form>
          <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if request.user.is_authenticated %}
@@ -80,7 +81,7 @@
               </ul>
             </li>
             <li class="nav-item mx-2">
-             <a href="{% url 'show-cart' %}" class="nav-link text-white"><span class="badge bg-danger">4</span> Cart </a>
+             <a href="{% url 'show-cart' %}" class="nav-link text-white"><span class="badge bg-danger">{{totalitem}}</span> Cart </a>
             </li>
             {% else %}
             <li class="nav-item mx-2">
@@ -107,9 +108,9 @@
 
 
     <!-- Start Footer -->
-    <footer class="container-fluid bg-dark text-center p-2 mt-5">
-        <small class="text-white">Copyright &copy; 2021 || Designed By GeekyShows || </small>
-        <img src="{% static 'app/images/payment.png' %}" alt="" srcset="" class="img-fluid" height="2px">
+    <footer class="container-fluid bg-white text-center p-2 mt-5">
+        <small class="text-dark">Copyright &copy; 2021 || Designed By Refat Jmail || </small>
+        <img src="{% static 'app/images/sslcom.png' %}" alt="" srcset="" class="img-fluid" height="2px">
     </footer> <!-- End Footer -->
   </div>
 

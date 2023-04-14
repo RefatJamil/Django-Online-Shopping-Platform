@@ -16,6 +16,8 @@
     {% endfor %}
     {% endif %}
 
+{% if carts %}
+
     {% for cart in carts %}
     <div class="row">
      <div class="col-sm-3 text-center align-self-center"><img src="{{cart.product.product_img.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
@@ -39,6 +41,14 @@
     <hr class="text-muted">
 
     {% endfor %}
+
+    {% else %}
+
+
+        <img src="{% static 'app/images/emptycart.png' %}" class="d-block w-10" alt="...">
+
+
+    {% endif %}
 
    </div>
    </div>
@@ -65,16 +75,5 @@
   
  </div>
 </div>
-<div class="container">
- <div class="row">
-  <div class="col-sm-8">
-   <div class="card">
-    <div class="card-body">
-      <h5 class="mb-4">We accept</h5>
-      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
-    </div>
-  </div>
-  </div>
- </div>
-</div>
+
 {% endblock main-content %}

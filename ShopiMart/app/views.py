@@ -15,8 +15,11 @@ class ProductView(View):
         bottomewears = Product.objects.filter(category='BW')
         mobiles = Product.objects.filter(category='M')
         laptops = Product.objects.filter(category='L')
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
 
-        context = {'topwears':topwears, 'bottomewears':bottomewears, 'mobiles':mobiles, 'laptops':laptops}
+        context = {'topwears':topwears, 'bottomewears':bottomewears, 'mobiles':mobiles, 'laptops':laptops, 'totalitem':totalitem}
 
         return render(request, 'app/home.html', context)
 
@@ -27,8 +30,11 @@ class ProductDetailView(View):
         if request.user.is_authenticated:
             item_already_in_cart = Cart.objects.filter(Q(product=product.id) & Q(user=request.user)).exists()
 
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
 
-        context = {'product':product, 'item_already_in_cart':item_already_in_cart}
+        context = {'product':product, 'item_already_in_cart':item_already_in_cart, 'totalitem':totalitem}
 
         return render(request, 'app/productdetail.html', context)
 
@@ -37,6 +43,7 @@ def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
     product = Product.objects.get(id=product_id)
+
 
     if Cart.objects.filter(Q(product=product.id) & Q(user=request.user)).exists():
         return redirect(f'/product-detail/{product_id}')
@@ -57,6 +64,11 @@ def show_cart(request):
         shipping_amount = 70.0  
         cart_product = [p for p in Cart.objects.all() if p.user == user]
 
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         if cart_product:
             for p in cart_product:
                 temp_amount = (p.quantity * p.product.discounted_price)
@@ -66,7 +78,7 @@ def show_cart(request):
         else:    
             total_amount = shipping_amount + amount
 
-    context={'carts': carts, 'amount':amount, 'total_amount':total_amount}
+    context={'carts': carts, 'amount':amount, 'total_amount':total_amount, 'totalitem':totalitem}
     return render(request, 'app/addtocart.html', context)
 
 @login_required
@@ -140,7 +152,11 @@ def buy_now(request):
 class ProfileView(View):
     def get(self, request):
         form = CustomerProfileForm()
-        context = {'form':form, 'active':'btn-dark'}
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user)) 
+
+        context = {'form':form, 'active':'btn-dark', 'totalitem':totalitem}
         return render(request, 'app/profile.html', context)
         
     def post(self, request):
@@ -161,7 +177,11 @@ class ProfileView(View):
 @login_required
 def addaddress(request):
     add = Customer.objects.filter(user=request.user)
-    context = {'active':'btn-dark', 'add':add}
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
+
+    context = {'active':'btn-dark', 'add':add, 'totalitem':totalitem}
 
     return render(request, 'app/address.html', context)
 
@@ -173,9 +193,12 @@ def deladdress(request, id):
  
 @login_required
 def orders(request):
- op = OrderPlaced.objects.filter(user= request.user)
- context={'op':op}
- return render(request, 'app/orders.html', context)
+    op = OrderPlaced.objects.filter(user= request.user)
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))  
+    context={'op':op, 'totalitem':totalitem}
+    return render(request, 'app/orders.html', context)
 
 
 
@@ -191,9 +214,13 @@ def mobile(request, data=None):
 
     allmobile = Product.objects.filter(category='M').values('brand').distinct()
 
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
     context = {
         'mobile':mobile,
         'allmobile':allmobile,
+        'totalitem':totalitem
         } 
       
     return render(request, 'app/mobile.html', context)
@@ -211,9 +238,14 @@ def laptop(request, data=None):
 
     alllaptop = Product.objects.filter(category='L').values('brand').distinct()
 
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
+
     context = {
         'laptop':laptop,
         'alllaptop':alllaptop,
+        'totalitem':totalitem
         } 
       
     return render(request, 'app/laptop.html', context)
@@ -231,9 +263,15 @@ def topwear(request, data=None):
 
     alltopwear = Product.objects.filter(category='TM').values('brand').distinct()
 
+
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
+
     context = {
         'topwear':topwear,
         'alltopwear':alltopwear,
+        'totalitem':totalitem
         } 
       
     return render(request, 'app/topwear.html', context)
@@ -251,9 +289,14 @@ def bottomwear(request, data=None):
 
     allbottomwear = Product.objects.filter(category='BW').values('brand').distinct()
 
+
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
     context = {
         'bottomwear':bottomwear,
         'allbottomwear':allbottomwear,
+        'totalitem':totalitem
         } 
       
     return render(request, 'app/bottomwear.html', context)
@@ -283,7 +326,12 @@ def checkout(request):
     user = request.user
     addrs = Customer.objects.filter(user=user)
     cart_items = Cart.objects.filter(user=user)
-    
+
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user)) 
+
+
     amount = 0.0
     shipping_amount = 70.0  
     cart_product = [p for p in Cart.objects.all() if p.user == request.user]
@@ -299,13 +347,17 @@ def checkout(request):
         messages.error(request,'Please add product before order placed')
         return redirect("show-cart")
             
-    context={'addrs':addrs, 'cart_items':cart_items, 'total_amount':total_amount}
+    context={'addrs':addrs, 'cart_items':cart_items, 'total_amount':total_amount, 'totalitem':totalitem}
     return render(request, 'app/checkout.html', context)
 
 @login_required
 def paymentdone(request):
     user = request.user
     custid = request.GET.get('custid')
+    if custid is None:
+        messages.error(request,'Please sclect shopping address')
+        return redirect("checkout")    
+
     customer = Customer.objects.get(id=custid)
     cart = Cart.objects.filter(user=user)
     for c in cart:

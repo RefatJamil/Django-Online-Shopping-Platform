@@ -36,10 +36,18 @@
             Address: {{forloop.counter}} </label>
         </div>
         {% endfor %}
+        
+
         <div class="text-end">
           <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
         </div>
       </form>
+      <br>
+      {% if messages %}
+      {% for mg in messages %}
+      <p {% if mg.tags %} class="alert alert-danger mb-5" {% endif %}>{{mg}}</p>
+      {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>

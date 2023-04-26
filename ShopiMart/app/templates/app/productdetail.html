@@ -8,8 +8,9 @@
    <img src="{{ product.product_img.url}}" alt="" class="img-fluid img-thumbnail">
   </div>
   <div class="col-sm-5 offset-sm-1">
-   <h2>{{ product.title }}</h2>
-   <hr>
+    <h2>{{ product.title }}</h2>
+    <p>Brand: <span class="text-muted h5">{{ product.brand }}</span> </p>
+    <hr>
    <p>{{ product.discription }}</p> <br>
    <h4>Tk. {{ product.discounted_price }} <small class="fw-light text-decoration-line-through">{{ product.selling_price }}</small></h4> <br>
 

@@ -42,6 +42,6 @@ class ShippingAddressForm(forms.ModelForm):
             'state':forms.Select(attrs={'class':'form-control'}),
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'location':forms.TextInput(attrs={'class':'form-control'}),
-            'phone_number':forms.NumberInput(attrs={'min': '11', 'max': '11','class':'form-control'}),
+            'phone_number':forms.NumberInput(attrs={'class':'form-control'}),
             
         }

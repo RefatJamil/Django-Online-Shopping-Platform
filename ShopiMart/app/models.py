@@ -68,16 +68,7 @@ STATE_CHOICES = (
     ('Meherpur','Meherpur')
 )
 
-class Customer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    locality = models.CharField(max_length=200)
-    city = models.CharField(max_length=50)
-    zipcode = models.IntegerField()
-    state = models.CharField(choices=STATE_CHOICES,  max_length=100)
 
-    def __str__(self):
-        return str((self.id))
 
 CATEGORY_CHOICES = (
     ('M', 'Mobile'),
@@ -96,6 +87,10 @@ class Product(models.Model):
     product_img =models.ImageField(upload_to='productimg')
     def __str__(self):
         return str((self.id))
+    
+    def save(self, *args, **kwargs):
+        self.brand = self.brand.title()
+        super(Product, self).save(*args, **kwargs)
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -121,7 +116,10 @@ STATUS_CHOICES = (
 
 class OrderPlaced(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    location = models.CharField(max_length=200)
+    name = models.CharField(max_length=50)
+    phone_number = models.IntegerField()
+    state = models.CharField(choices=STATE_CHOICES,  max_length=100)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     ordered_date = models.DateTimeField(auto_now_add=True)

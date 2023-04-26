@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Customer, Product, Cart, OrderPlaced
-from .forms import CoustomerRegistrationFrom, CustomerProfileForm
+from .models import Product, Cart, OrderPlaced
+from .forms import CoustomerRegistrationFrom, ShippingAddressForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
@@ -149,47 +149,8 @@ def buy_now(request):
  return render(request, 'app/buynow.html')
 
 
-class ProfileView(View):
-    def get(self, request):
-        form = CustomerProfileForm()
-        totalitem = 0
-        if request.user.is_authenticated:
-            totalitem = len(Cart.objects.filter(user=request.user)) 
 
-        context = {'form':form, 'active':'btn-dark', 'totalitem':totalitem}
-        return render(request, 'app/profile.html', context)
-        
-    def post(self, request):
-        form = CustomerProfileForm(request.POST)
-        if form.is_valid():
-            user = request.user
-            name = form.cleaned_data['name'] 
-            locality = form.cleaned_data['locality']
-            city = form.cleaned_data['city'] 
-            zipcode = form.cleaned_data['zipcode'] 
-            state = form.cleaned_data['state']
-            reg = Customer(user=user, name=name, locality=locality, city=city, state=state, zipcode=zipcode)
-            reg.save()
-            messages.success(request, 'Congratulation !! Profile Updated Successfully.')
-            context = {'form':form, 'active':'btn-primary'}
-        return render(request, 'app/profile.html', context)
 
-@login_required
-def addaddress(request):
-    add = Customer.objects.filter(user=request.user)
-    totalitem = 0
-    if request.user.is_authenticated:
-        totalitem = len(Cart.objects.filter(user=request.user)) 
-
-    context = {'active':'btn-dark', 'add':add, 'totalitem':totalitem}
-
-    return render(request, 'app/address.html', context)
-
-@login_required
-def deladdress(request, id):
-    user = Customer.objects.get(id=id)  
-    user.delete()  
-    return redirect("address")
  
 @login_required
 def orders(request):
@@ -301,8 +262,8 @@ def bottomwear(request, data=None):
       
     return render(request, 'app/bottomwear.html', context)
 
-def login(request):
- return render(request, 'app/login.html')
+# def login(request):
+#  return render(request, 'app/login.html')
 
 # def customerregistration(request):
 #  return render(request, 'app/customerregistration.html')
@@ -323,45 +284,52 @@ class CustomerRegistrationView(View):
     
 @login_required
 def checkout(request):
-    user = request.user
-    addrs = Customer.objects.filter(user=user)
-    cart_items = Cart.objects.filter(user=user)
+    if request.method == 'POST':
+        user = request.user
+        SAForm = ShippingAddressForm(request.POST)
+        if SAForm.is_valid():
+            location = SAForm.cleaned_data['location']
+            name = SAForm.cleaned_data['name']
+            phone_number = SAForm.cleaned_data['phone_number']
+            state = SAForm.cleaned_data['state']
+        else:
+            messages.error(request,'Unvalid')
+            return redirect("checkout")  
+    
 
-    totalitem = 0
-    if request.user.is_authenticated:
-        totalitem = len(Cart.objects.filter(user=request.user)) 
+        cart = Cart.objects.filter(user=user)
+        for c in cart:
+            OrderPlaced(user=user, location=location, name=name, phone_number=phone_number, state=state, product=c.product, quantity=c.quantity).save()
+            c.delete()
 
+        return redirect("orders")    
 
-    amount = 0.0
-    shipping_amount = 70.0  
-    cart_product = [p for p in Cart.objects.all() if p.user == request.user]
-    if cart_product:
-            for p in cart_product:
-                temp_amount = (p.quantity * p.product.discounted_price)
-                amount += temp_amount
-            if amount == 0:
-                total_amount = 0.0
-            else:    
-                total_amount = shipping_amount + amount
     else:
-        messages.error(request,'Please add product before order placed')
-        return redirect("show-cart")
-            
-    context={'addrs':addrs, 'cart_items':cart_items, 'total_amount':total_amount, 'totalitem':totalitem}
-    return render(request, 'app/checkout.html', context)
+        SAForm = ShippingAddressForm()
+        user = request.user
+        cart_items = Cart.objects.filter(user=user)
 
-@login_required
-def paymentdone(request):
-    user = request.user
-    custid = request.GET.get('custid')
-    if custid is None:
-        messages.error(request,'Please sclect shopping address')
-        return redirect("checkout")    
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user)) 
 
-    customer = Customer.objects.get(id=custid)
-    cart = Cart.objects.filter(user=user)
-    for c in cart:
-        OrderPlaced(user=user, customer= customer, product=c.product, quantity=c.quantity).save()
-        c.delete()
 
-    return redirect("orders")    
+        amount = 0.0
+        shipping_amount = 70.0  
+        cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+        if cart_product:
+                for p in cart_product:
+                    temp_amount = (p.quantity * p.product.discounted_price)
+                    amount += temp_amount
+                if amount == 0:
+                    total_amount = 0.0
+                else:    
+                    total_amount = shipping_amount + amount
+        else:
+            messages.error(request,'Please add product before order placed')
+            return redirect("show-cart")
+                
+        context={'SAForm':SAForm, 'cart_items':cart_items, 'total_amount':total_amount, 'totalitem':totalitem}
+        return render(request, 'app/checkout.html', context)
+
+

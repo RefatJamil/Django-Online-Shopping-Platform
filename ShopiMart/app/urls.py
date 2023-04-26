@@ -21,9 +21,6 @@ urlpatterns = [
     path('remove_from_cart/<int:id>', views.remove_from_cart, name='remove_from_cart'),
 
     path('buy/', views.buy_now, name='buy-now'),
-    path('profile/',login_required(views.ProfileView.as_view()), name='profile'),
-    path('address/', views.addaddress, name='address'),
-    path('deladdress/<int:id>', views.deladdress, name='deladdress'),
     path('orders/', views.orders, name='orders'),
     
     path('mobile/', views.mobile, name='mobile'),
@@ -39,7 +36,6 @@ urlpatterns = [
     path('bottomwear/<slug:data>/', views.bottomwear, name='bottomwear'),
 
     path('checkout/', views.checkout, name='checkout'),
-    path('paymentdone/', views.paymentdone, name='paymentdone'),
 
 
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),

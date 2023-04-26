@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
-from .models import Customer
+from .models import OrderPlaced
+
+
 class CoustomerRegistrationFrom(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -32,15 +34,14 @@ class UserSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label='New Password',strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control'}), help_text=password_validation.password_validators_help_text_html())
     new_password2 = forms.CharField(label='Confirm New Password',strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control'}))
 
-class CustomerProfileForm(forms.ModelForm):
+class ShippingAddressForm(forms.ModelForm):
     class Meta:
-        model = Customer
-        fields = ['name', 'locality', 'city', 'state', 'zipcode']
+        model = OrderPlaced
+        fields = ['name', 'state', 'location', 'phone_number']
         widgets = {
-            'name':forms.TextInput(attrs={'class':'form-control'}),
-            'locality':forms.TextInput(attrs={'class':'form-control'}),
-            'city':forms.TextInput(attrs={'class':'form-control'}),
             'state':forms.Select(attrs={'class':'form-control'}),
-            'zipcode':forms.NumberInput(attrs={'class':'form-control'}),
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'location':forms.TextInput(attrs={'class':'form-control'}),
+            'phone_number':forms.NumberInput(attrs={'min': '11', 'max': '11','class':'form-control'}),
             
         }

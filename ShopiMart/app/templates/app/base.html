@@ -74,14 +74,13 @@
                 {{user.username|capfirst}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
                 <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li> 
               </ul>
             </li>
             <li class="nav-item mx-2">
-             <a href="{% url 'show-cart' %}" class="nav-link text-white"><span class="badge bg-danger">{{totalitem}}</span> Cart </a>
+             <a href="{% url 'show-cart' %}" class="nav-link text-white"><span class="badge bg-danger">{{totalitem}} </span> Cart </a>
             </li>
             {% else %}
             <li class="nav-item mx-2">
@@ -124,5 +123,6 @@
     <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'app/js/all.min.js' %}"></script>
     <script src="{% static 'app/js/myscript.js' %}"></script>
+    <script src="https://kit.fontawesome.com/1deeb5d7a1.js" crossorigin="anonymous"></script>
   </body>
 </html>

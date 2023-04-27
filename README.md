@@ -3,7 +3,6 @@
 This is a Django Shopping Website.
 
 
-``
 ## Installation
 
 To install the project follow these steps:

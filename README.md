@@ -11,8 +11,6 @@ This project is a simple e-commerce website built using the Django framework. It
 
 ## Demo
 
-Insert gif or link to demo
-
 #### Home Page :
 ![Home Page](https://raw.githubusercontent.com/rifatjamil54/ShopiMart--django-e-commerce-project/main/demo/Screenshot%20from%202023-04-27%2009-29-26.png)
 #### Add to Cart :

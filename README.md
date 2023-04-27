@@ -1,6 +1,12 @@
 
 # ShopiMart
-This is a Django Shopping Website.
+This project is a simple e-commerce website built using the Django framework. It allows users to browse products, add them to their cart, and check out their orders. 
+## Features
+
+- User registration and login. (User Authentication System)
+- Adding and removing products from the cart
+- Increasing and decreasing product quantity.
+- Checkout process with payment gateway integration
 
 
 ## Demo

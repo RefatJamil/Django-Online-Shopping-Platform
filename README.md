@@ -3,23 +3,39 @@
 This is a Django Shopping Website.
 
 
+``
+## Installation
+
 To install the project follow these steps:
 
- `git clone https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git`
+1.
 
- `cd ShopiMart--django-e-commerce-project`
+ ```bash
+git clone https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
+cd ShopiMart--django-e-commerce-project
+virtualenv venv
+```
+2.
+Activate Virtualenv :
 
- `virtualenv venv`
+for Linux/Mac OS
+```bash
+ source venv/bin/activate
+ ```  
+ 
+for Windows
 
-`source venv/bin/activate` (for Linux/Mac OS ) or `venv\Scripts\activate` (for Windows) 
+```bash
+ venv\Scripts\activate
 
+```
 
+3.
+```bash
+pip install -r requirements.txt
+cd ShopiMart/
+python manage.py runserver
 
-
- `pip install -r requirements.txt`
-
- `cd ShopiMart/`
-
- `python manage.py runserver`
+```
 
 

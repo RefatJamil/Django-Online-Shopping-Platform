@@ -6,6 +6,8 @@ This project is a simple e-commerce website built using the Django framework. It
 - User registration and login. (User Authentication System)
 - Adding and removing products from the cart
 - Increasing and decreasing product quantity.
+- Checkout process with payment gateway integration
+
 
 
 ## Demo

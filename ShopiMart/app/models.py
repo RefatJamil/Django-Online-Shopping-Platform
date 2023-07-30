@@ -114,11 +114,17 @@ STATUS_CHOICES = (
     ('Panding','Panding')
 )
 
+PAYMENT_METHOD = (
+    ('Cash on Delivery', 'Cash on Delivery'),
+    ('PayPal', 'PayPal')
+)
+
 class OrderPlaced(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=200)
     name = models.CharField(max_length=50)
     phone_number = models.IntegerField()
+    payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD, default='Cash on Delivery')
     state = models.CharField(choices=STATE_CHOICES,  max_length=100)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

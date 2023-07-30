@@ -292,14 +292,15 @@ def checkout(request):
             name = SAForm.cleaned_data['name']
             phone_number = SAForm.cleaned_data['phone_number']
             state = SAForm.cleaned_data['state']
+            payment_method = SAForm.cleaned_data['payment_method']
         else:
             messages.error(request,'Unvalid')
-            return redirect("checkout")  
+            return redirect("checkout")
     
 
         cart = Cart.objects.filter(user=user)
         for c in cart:
-            OrderPlaced(user=user, location=location, name=name, phone_number=phone_number, state=state, product=c.product, quantity=c.quantity).save()
+            OrderPlaced(user=user, location=location, name=name, phone_number=phone_number, state=state, payment_method=payment_method, product=c.product, quantity=c.quantity).save()
             c.delete()
 
         return redirect("orders")    

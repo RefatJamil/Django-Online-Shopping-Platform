@@ -17,4 +17,4 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(OrderPlaced)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['id','user', 'location', 'name', 'phone_number', 'state', 'product', 'quantity', 'ordered_date', 'status']
+    list_display = ['id','user', 'location', 'name', 'phone_number', 'state', 'product', 'quantity', 'ordered_date', 'status', 'payment_method']

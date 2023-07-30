@@ -37,15 +37,22 @@
 
             <!-- Set up a container element for the button -->
             <div id="paypal-button-container" style="display: none;"></div>
+            <input class="btn btn-warning" type="submit" id="ordersubmit" style="display: block;"  value="Order Submit">
+
           </form>
 
 <!-- JavaScript to show button after form fillup -->
 <script>
   document.getElementById("myForm").addEventListener("input", function() {
-    if (this.checkValidity()) {
+
+    if (document.querySelector('#id_payment_method').value == 'PayPal') {
       document.getElementById("paypal-button-container").style.display = "block";
+      document.getElementById("ordersubmit").style.display = "none";
+
     } else {
       document.getElementById("paypal-button-container").style.display = "none";
+      document.getElementById("ordersubmit").style.display = "block";
+
     }
   });
 </script>

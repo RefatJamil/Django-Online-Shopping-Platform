@@ -37,11 +37,14 @@ class UserSetPasswordForm(SetPasswordForm):
 class ShippingAddressForm(forms.ModelForm):
     class Meta:
         model = OrderPlaced
-        fields = ['name', 'state', 'location', 'phone_number']
+        fields = ['name', 'state', 'location', 'phone_number', 'payment_method']
+        labels = {'payment_method':'Select Payment Method'}
+
         widgets = {
             'state':forms.Select(attrs={'class':'form-control'}),
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'location':forms.TextInput(attrs={'class':'form-control'}),
             'phone_number':forms.NumberInput(attrs={'class':'form-control'}),
+            'payment_method':forms.Select(attrs={'class':'form-control'}),
             
         }

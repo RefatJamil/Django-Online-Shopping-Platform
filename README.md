@@ -25,10 +25,12 @@ This project is a simple e-commerce website built using the Django framework. It
 
 To install the project follow these steps:
 
-1.
+1. Clone demo branch
 
  ```bash
-git clone https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
+git clone -b demo https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
+```
+```bash
 cd ShopiMart--django-e-commerce-project
 virtualenv venv
 ```

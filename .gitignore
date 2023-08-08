@@ -2,18 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyc 
-*.log
 
-*.pot
-
-*.pyc
-
-*/*/*/__pycache__/
-
-*/*/__pycache__/
-
-*/__pycache__/
 # C extensions
 *.so
 

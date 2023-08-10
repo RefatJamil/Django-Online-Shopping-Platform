@@ -7,6 +7,7 @@ This project is a simple e-commerce website built using the Django framework. It
 - Adding and removing products from the cart
 - Increasing and decreasing product quantity.
 - Checkout process with payment gateway integration
+- Deploy on AWS EC2 with PostgreSQL and S3 Storage. Live Link http://13.51.108.30/
 
 
 

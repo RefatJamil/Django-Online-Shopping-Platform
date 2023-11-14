@@ -1,6 +1,6 @@
 
 # OShop
-This project is a simple e-commerce website built using the Django framework. It allows users to browse products, add them to their cart, and check out their orders. 
+This is an online shopping platform built using Django. It allows users to browse products, add them to their cart, and check out their orders. 
 ## Features
 
 - User registration and login. (User Authentication System)

@@ -1,5 +1,5 @@
 
-# ShopiMart
+# OShop
 This project is a simple e-commerce website built using the Django framework. It allows users to browse products, add them to their cart, and check out their orders. 
 ## Features
 
@@ -25,12 +25,10 @@ This project is a simple e-commerce website built using the Django framework. It
 
 To install the project follow these steps:
 
-1. Clone demo branch
+1.
 
  ```bash
-git clone -b demo https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
-```
-```bash
+git clone https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
 cd ShopiMart--django-e-commerce-project
 virtualenv venv
 ```
@@ -52,7 +50,7 @@ for Windows
 3.
 ```bash
 pip install -r requirements.txt
-cd ShopiMart/
+cd OShop/
 python manage.py runserver
 
 ```

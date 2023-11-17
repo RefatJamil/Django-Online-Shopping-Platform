@@ -12,7 +12,7 @@ This is an online shopping platform built using Django. It allows users to brows
 
 ## Demo
 #### Home Page :
-![Home Page](https://raw.githubusercontent.com/RefatJamil/ShopiMart--django-e-commerce-project/dev/demo/Screenshot%20from%202023-04-27%2009-29-26.png)
+![Home Page](https://raw.githubusercontent.com/RefatJamil/Django-Online-Shopping-Platform/main/demo/Screenshot%20from%202023-04-27%2009-29-26.png)
 #### Add to Cart :
 ![Add to Cart](https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project/blob/main/demo/add_to_cart.gif)
 #### Paypal Payment :

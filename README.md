@@ -27,7 +27,7 @@ To install the project follow these steps:
 1.
 
  ```bash
-git clone https://github.com/rifatjamil54/ShopiMart--django-e-commerce-project.git
+git clone https://github.com/refatjamil/Django-Online-Shopping-Platform.git
 cd ShopiMart--django-e-commerce-project
 virtualenv venv
 ```

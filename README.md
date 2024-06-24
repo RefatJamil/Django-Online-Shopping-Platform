@@ -77,6 +77,8 @@ Follow these instructions to set up OShop on your local machine:
 
 2. **Create and Activate a Virtual Environment**:
     ```bash
+    sudo apt update
+    sudo apt install python3 python3-venv
     python3 -m venv venv
     source venv/bin/activate
     ```
@@ -84,6 +86,7 @@ Follow these instructions to set up OShop on your local machine:
 3. **Install Dependencies**:
     ```bash
     pip install -r requirements.txt
+    cd OShop
     ```
 
 4. **Run Migrations and Start the Server**:
